@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>NikhilMTomy</title>
-		<?php
-			echo "<link href=\"/css/bootstrap.css?v=" . time() . "\" rel=\"stylesheet\"/>";
-			echo "<link href=\"/css/index.css?v=" . time() . "\" rel=\"stylesheet\"/>";
-		?>
+			<link href="/css/bootstrap.css" rel="stylesheet"/>
+			<link href="/css/index.css" rel="stylesheet"/>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.js"></script>
 		<script src="/js/topbar.js"></script>
