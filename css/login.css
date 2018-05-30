@@ -1,12 +1,38 @@
+body {
+  font-family: 'Fira Sans'
+}
 #login-card {
   width: 18rem;
   margin-left: auto;
   margin-right: auto;
   margin-top: 50px;
   margin-bottom: 50px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
   transition: 0.3s;
 }
 #login-card:hover {
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.4);
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.7);
+}
+#login-card-error {
+  width: 18rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 8px 0 rgba(255,0,0,0.6);
+  transition: 0.3s;
+}
+#login-card-error:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,0,0.7);
+}
+
+#idAlert {
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  color: rgb(255, 0, 0);
+  background-color: rgba(255, 119, 119, 0.6);
+  border-color: rgb(255, 0, 0);
+  border-width: 1px;
+  border-style: solid;
 }

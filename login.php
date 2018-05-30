@@ -15,11 +15,20 @@
     	include("template/topbar.php");
     ?>
     <div class="container ">
-      <div id="login-card" class="rounded">
+      <?php
+      if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+      if (isset($_SESSION["error"])) {
+        echo "<div id=\"login-card-error\" class=\"rounded\">";
+      } else {
+        echo "<div id=\"login-card\" class=\"rounded\">";
+      }
+      ?>
         <div class="card round-0" style="width: 18rem; margin: 0;">
           <img class="card-img-top round-0" src="img/user.png" alt="Card image cap">
           <div class="card-body round-0">
-            <form onsubmit="login(); return false;">
+            <form id="idForm" onsubmit="login(); return false;">
 							<div class="form-group">
 								<label for="idUsername">Username</label>
 	        			<input name="username" id="idUsername" class="form-control" type="text" placeholder="Username"/>
@@ -39,11 +48,8 @@
           </div>
         </div>
         <?php
-          if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-          }
           if (isset($_SESSION["error"])) {
-            echo "<div class=\"alert alert-danger\" role=\"alert\">" .
+            echo "<div id=\"idAlert\">" .
               $_SESSION["error"] .
               "</div>";
             unset($_SESSION["error"]);
