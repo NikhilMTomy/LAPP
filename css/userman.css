@@ -1,0 +1,7 @@
+@import url('./fonts.css');
+
+body {
+  font-family: 'Fira Sans';
+}
+
+@import url('fonts.css');

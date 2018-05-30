@@ -1,0 +1,39 @@
+@media all and (orientation: portrait) {
+  body {
+    background-image: none;
+    background-repeat: no-none;
+    background-position: none;
+    background-attachment: none;
+    -webkit-background-size: none;
+    -moz-background-size: none;
+    -o-background-size: none;
+    background-size: none;
+  }
+  #idMainHead {
+    background: url("/img/bg-portrait.png") no-repeat center center scroll;
+    background-size: 100% 100%;
+  }
+}
+
+#idMainHead {
+  height: calc(100vh - 40px);
+  line-height: calc(100vh - 40px);
+  word-wrap: break-word;
+  font-family: 'Fira Sans';
+  text-align: center;
+  color: white;    
+}
+#idMainHead h1 {
+  font-family: 'Fira Sans';
+  font-weight: 200;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 40px;
+  background-color: rgba(37, 37, 37, 0.877);
+  padding: 15px;
+}
+
+#idMainDiv {
+  background-color: white;
+  padding: 100px 50px;
+}
