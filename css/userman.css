@@ -3,3 +3,30 @@
 body {
   font-family: 'Fira Sans';
 }
+.row {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.col {
+  margin: 10px;
+  padding: 10px;
+}
+.image-card {
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+.image-card:hover {
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.7);
+}
+.image-card img {
+  width: 150px;
+  height: 150px;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}

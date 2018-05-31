@@ -1,7 +1,10 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+
 function logout() {
 	unset($_SESSION["user"]);
-  header('Location: /');
   exit;
 }
 
@@ -16,23 +19,34 @@ function login($username, $password) {
       $output = $conn->prepare($sql);
       $output->execute();
       if($output->fetchColumn()=="t") {
-        $sql = "SELECT username, email, created, displayname FROM users WHERE username='$username' AND password='$password'";
+        // get userdata
+        $sql = "SELECT userid, username, email, lastlog, created, displayname, role FROM users WHERE username='$username' AND password='$password'";
         $output = $conn->prepare($sql);
         $output->execute();
         $user = $output->fetch(PDO::FETCH_ASSOC);
 
-        $result["user"] = $user;
-				unset($result["error"]);
-				$result["return"] = true;
-				return $result;
+        // update lastlog
+        $sql = "UPDATE users SET lastlog=NOW() WHERE username='$username' AND password='$password'";
+        $output = $conn->prepare($sql);
+        $output->execute();
+
+				$_SESSION["user"] = $user;
+				unset($_SESSION["error"]);
+				return true;
       } else {
-        $result["error"] = "Invalid username or password";
+        error_log("functions.php :: Invalid username or password [$username, $password]");
+        $_SESSION["error"] = "Invalid username or password";
+        unset($_SESSION["user"]);
       }
     }
   } catch (PDOException $e) {
-    echo $e->getMessage();
+    error_log("functions.php :: PDOException :: $e->getMessage()");
   }
-  $result["return"] = false;
-	return $result;
+  return false;
+}
+
+function checkIfUsernameExists($username) {
+  $sql = "SELECT EXISTS(SELECT 1 FROM users WHERE username='$username'";
+  return false;
 }
 ?>
