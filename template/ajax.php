@@ -9,8 +9,14 @@ if (isset($_POST["action"])) {
 		case "login":
 			login($_POST["username"], $_POST["password"]);
 			break;
-		case "checkIfUsernameExists":
-			checkIfUsernameExists();
+		case "usernameExists":
+			usernameExists($_POST["username"]);
+			break;
+		case "emailExists":
+			emailExists($_POST["email"]);
+			break;
+		case "createUser":
+			createUser($_POST["displayname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"]);
 			break;
 	}
 }

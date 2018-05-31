@@ -1,8 +1,11 @@
-$(document).ready(function() {
-	$("#idUsername").focusout(checkEmptyUsername);
-	$("#idPassword").focusout(checkEmptyPassword);
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
 });
-function checkEmptyUsername() {
+$(document).ready(function() {
+	$("#idUsername").focusout(checkUsername);
+	$("#idPassword").focusout(checkPassword);
+});
+function checkUsername() {
 	if ($.trim($("#idUsername").val()) == '') {
 		$("#idUsername").addClass("is-invalid");
 		return false;
@@ -11,7 +14,7 @@ function checkEmptyUsername() {
 		return true;
 	}
 }
-function checkEmptyPassword() {
+function checkPassword() {
 	if ($.trim($("#idPassword").val()) == '') {
 		$("#idPassword").addClass("is-invalid");
 		return false;
@@ -20,13 +23,13 @@ function checkEmptyPassword() {
 		return true;
 	}
 }
-function checkEmptyField() {
-	return (checkEmptyPassword() && checkEmptyUsername());
+function checkFields() {
+	return (checkPassword() && checkUsername());
 }
 function login() {
 	var username = $("#idUsername").val();
 	var password = $("#idPassword").val();
-	if (checkEmptyField()) {
+	if (checkFields()) {
 		var data = {
 			action: "login",
 			username: username,

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +14,7 @@
     <?php
     	include("template/topbar.php");
     ?>
-    <div class="container ">
+    <div class="container">
       <?php
       if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -25,7 +25,7 @@
         echo "<div id=\"login-card\" class=\"rounded\">";
       }
       ?>
-        <div class="card round-0" style="width: 18rem; margin: 0;">
+        <div class="card round-0">
           <img class="card-img-top round-0" src="img/user.png" alt="Card image cap">
           <div class="card-body round-0">
             <form id="idForm" onsubmit="login(); return false;">

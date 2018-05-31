@@ -19,7 +19,7 @@
 	if(isset($_SESSION["user"])) {
 		require_once("template/home.php");
 	} else {
-		header("Location: login.php", true, 303);
+		header("Location: /login.php", true, 303);
 		exit;
 	}
 ?>

@@ -1,9 +1,13 @@
 <?php
-	include("template/topbar.php");
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
-	if(isset($_SESSION["user"])) {
+	if(!isset($_SESSION["user"])) {
+		header("Location: /login.php", true, 303);
+		exit;
+	} elseif($_SESSION["user"]["role"] != "admin") {
+		echo "Only admin can manage users";
+	} else {
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,16 +15,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<title>NikhilMTomy</title>
-		<?php
-			echo "<link href=\"/css/bootstrap.css?v=" . time() . "\" rel=\"stylesheet\"/>";
-			echo "<link href=\"/css/userman.css?v=" . time() . "\" rel=\"stylesheet\"/>";
-		?>
+		<link href="/css/bootstrap.css" rel="stylesheet"/>
+		<link href="/css/userman.css" rel="stylesheet"/>
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.js"></script>
 		<script src="/js/userman.js"></script>
 		<script src="/js/topbar.js"></script>
 	</head>
 	<body>
+		<?php
+			include("template/topbar.php");
+		?>
 		<div class="continer-fluid">
 			<div class="row">
 				<div class="col">
@@ -47,9 +52,6 @@
 			</div>
 		</div>
 <?php
-	} else {
-		header("Location: login.php", true, 303);
-		exit;
 	}
 ?>
 	</body>
