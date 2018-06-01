@@ -4,22 +4,46 @@ include('functions.php');
 if (isset($_POST["action"])) {
 	switch($_POST["action"]) {
 		case "logout":
-			logout();
+			if(logout()) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 		case "login":
-			login($_POST["username"], $_POST["password"]);
+			if(login($_POST["username"], $_POST["password"])) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 		case "usernameExists":
-			usernameExists($_POST["username"]);
+			if(usernameExists($_POST["username"])) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 		case "emailExists":
-			emailExists($_POST["email"]);
+			if(emailExists($_POST["email"])) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 		case "createUser":
-			createUser($_POST["displayname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"]);
+			if(createUser($_POST["displayname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"])) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 		case "removeUser":
-			removeUser($_POST["userid"], $_POST["username"]);
+			if(removeUser($_POST["userid"], $_POST["username"])) {
+				echo "true";
+			} else {
+				echo "false";
+			}
 			break;
 	}
 }

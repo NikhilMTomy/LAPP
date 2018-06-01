@@ -1,11 +1,10 @@
 <?php
-
 function logout() {
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
-	unset($_SESSION["user"]);
-  exit();
+  unset($_SESSION["user"]);
+  return true;
 }
 function login($username, $password) {
   if (session_status() == PHP_SESSION_NONE) {
@@ -33,7 +32,6 @@ function login($username, $password) {
 				$_SESSION["user"] = $user;
         unset($_SESSION["error"]);
         $db = null;
-        echo "true";
 				return true;
       } else {
         error_log("functions.php :: Invalid username or password [$username, $password]");
@@ -45,9 +43,7 @@ function login($username, $password) {
   } catch (PDOException $e) {
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
-  echo "false";
   return false;
-  exit();
 }
 function usernameExists($username) {
   require "dbconfig.php";
@@ -58,10 +54,9 @@ function usernameExists($username) {
       $query = $db->prepare($sql);
       $query->execute();
       if($query->fetchColumn()=="t") {
-        echo "true";
         $db = null;
+        return true;
       } else {
-        echo "false";
         $db = null;
       }
     }
@@ -69,7 +64,7 @@ function usernameExists($username) {
     $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
-  exit();
+  return false;
 }
 function emailExists($email) {
   require "dbconfig.php";
@@ -83,10 +78,9 @@ function emailExists($email) {
       }
       $query->execute();
       if($query->fetchColumn()=="t") {
-        echo "true";
         $db = null;
+        return true;
       } else {
-        echo "false";
         $db = null;
       }
     }
@@ -94,7 +88,7 @@ function emailExists($email) {
     $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
-  exit();
+  return false;
 }
 function createUser($displayname, $username, $email, $password, $role) {
   require "dbconfig.php";
@@ -110,19 +104,15 @@ function createUser($displayname, $username, $email, $password, $role) {
         error_log(print_r($db->errorInfo(), true));
       } else {
         $query->execute();
-        login($username, $password);
-        header("Location: /index.php, true, 303");
-        echo "true";
+        return true;
       }
     }
     $db = null;
   } catch (PDOException $e) {
     $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
-    return false;
   }
-  return true;
-  exit();
+  return false;
 }
 function listUsers() {
   require "dbconfig.php";
@@ -154,14 +144,12 @@ function removeUser($userid, $username) {
     $db = new PDO($dsn);
     if($db) {
       $sql = "DELETE FROM users WHERE userid=" . $userid . " AND username='" . $username . "'";
-      error_log($sql);
       $query = $db->prepare($sql);
       if ($query) {
         $result = $query->execute();
         if ($result) {
-          echo "true";
           $db = null;
-          exit();
+          return true;
         }
       }
     }
@@ -170,7 +158,6 @@ function removeUser($userid, $username) {
     $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
-  echo "false";
-  exit();
+  return false;
 }
 ?>
