@@ -109,14 +109,6 @@ if(!isset($_SESSION["user"])) {
 						</div>
 					</form>
 				</div>
-				<?php
-          if (isset($_SESSION["error"])) {
-            echo "<div id=\"idAlert\">" .
-              $_SESSION["error"] .
-              "</div>";
-            unset($_SESSION["error"]);
-          }
-        ?>
 			</div>
 		</div>
 	</body>

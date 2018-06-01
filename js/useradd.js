@@ -135,8 +135,11 @@ function signup() {
 		var ajaxurl = "/template/ajax.php";
 		$.post(ajaxurl, data, function (response) {
 			if (response == "true") {
-				alert("/");
-				window.location.href="/";
+				$("#idAlert").remove();
+				$(".card").append("<div id=\"idSuccess\">Successfully created '" + username + "'</div>");
+			} else {
+				$("#idSuccess").remove();
+				$(".card").append("<div id=\"idAlert\">Could not create '" + username + "'</div>");
 			}
 		});
 	}

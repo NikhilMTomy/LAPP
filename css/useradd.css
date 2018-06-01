@@ -42,3 +42,23 @@ body {
 #login-card-error:hover {
     box-shadow: 0 8px 32px 0 rgba(255,0,0,0.7);
 }
+#idAlert {
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  color: rgb(255, 0, 0);
+  background-color: rgba(255, 119, 119, 0.6);
+  border-color: rgb(255, 0, 0);
+  border-width: 1px;
+  border-style: solid;
+}
+#idSuccess {
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  color: rgb(0, 0, 0);
+  background-color: rgba(140, 255, 140, 0.692);
+  border-color: rgb(0, 255, 0);
+  border-width: 1px;
+  border-style: solid;
+}
