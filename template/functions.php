@@ -7,34 +7,32 @@ function logout() {
 	unset($_SESSION["user"]);
   exit();
 }
-
 function login($username, $password) {
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
-  require("dbconfig.php");
-  $dsn = "pgsql:host={$db_host};port={$db_port};dbname={$db_name};user={$db_user};password={$db_pass}";
+  require "dbconfig.php";
   try {
-    $conn = new PDO($dsn);
-    if($conn) {
+    $db = new PDO($dsn);
+    if($db) {
       $sql = "SELECT EXISTS(SELECT 1 FROM users WHERE username='$username' AND password='$password')";
-      $output = $conn->prepare($sql);
-      $output->execute();
-      if($output->fetchColumn()=="t") {
+      $query = $db->prepare($sql);
+      $query->execute();
+      if($query->fetchColumn()=="t") {
         // get userdata
         $sql = "SELECT userid, username, email, lastlog, created, displayname, role FROM users WHERE username='$username' AND password='$password'";
-        $output = $conn->prepare($sql);
-        $output->execute();
-        $user = $output->fetch(PDO::FETCH_ASSOC);
+        $query = $db->prepare($sql);
+        $query->execute();
+        $user = $query->fetch(PDO::FETCH_ASSOC);
 
         // update lastlog
         $sql = "UPDATE users SET lastlog=NOW() WHERE username='$username' AND password='$password'";
-        $output = $conn->prepare($sql);
-        $output->execute();
+        $query = $db->prepare($sql);
+        $query->execute();
 
 				$_SESSION["user"] = $user;
         unset($_SESSION["error"]);
-        $conn = null;
+        $db = null;
         echo "true";
 				return true;
       } else {
@@ -42,7 +40,7 @@ function login($username, $password) {
         $_SESSION["error"] = "Invalid username or password";
         unset($_SESSION["user"]);
       }
-      $conn = null;
+      $db = null;
     }
   } catch (PDOException $e) {
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
@@ -52,81 +50,127 @@ function login($username, $password) {
   exit();
 }
 function usernameExists($username) {
-  require("dbconfig.php");
-  $dsn = "pgsql:host={$db_host};port={$db_port};dbname={$db_name};user={$db_user};password={$db_pass}";
+  require "dbconfig.php";
   try {
-    $conn = new PDO($dsn);
-    if($conn) {
+    $db = new PDO($dsn);
+    if($db) {
       $sql = "SELECT EXISTS(SELECT 1 FROM users WHERE username='$username')";
-      $output = $conn->prepare($sql);
-      $output->execute();
-      if($output->fetchColumn()=="t") {
+      $query = $db->prepare($sql);
+      $query->execute();
+      if($query->fetchColumn()=="t") {
         echo "true";
-        $conn = null;
+        $db = null;
       } else {
         echo "false";
-        $conn = null;
+        $db = null;
       }
     }
   } catch (PDOException $e) {
-    $conn = null;
+    $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
   exit();
 }
 function emailExists($email) {
-  require("dbconfig.php");
-  $dsn = "pgsql:host={$db_host};port={$db_port};dbname={$db_name};user={$db_user};password={$db_pass}";
+  require "dbconfig.php";
   try {
-    $conn = new PDO($dsn);
-    if($conn) {
+    $db = new PDO($dsn);
+    if($db) {
       $sql = "SELECT EXISTS(SELECT 1 FROM users WHERE email='$email')";
-      $output = $conn->prepare($sql);
-      if (!$output) {
-        error_log(print_r($conn->errorInfo(), true));
+      $query = $db->prepare($sql);
+      if (!$query) {
+        error_log(print_r($db->errorInfo(), true));
       }
-      $output->execute();
-      if($output->fetchColumn()=="t") {
+      $query->execute();
+      if($query->fetchColumn()=="t") {
         echo "true";
-        $conn = null;
+        $db = null;
       } else {
         echo "false";
-        $conn = null;
+        $db = null;
       }
     }
   } catch (PDOException $e) {
-    $conn = null;
+    $db = null;
     error_log("functions.php :: PDOException :: {$e->getMessage()}");
   }
   exit();
 }
 function createUser($displayname, $username, $email, $password, $role) {
-  require("dbconfig.php");
+  require "dbconfig.php";
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
   }
-  $dsn = "pgsql:host={$db_host};port={$db_port};dbname={$db_name};user={$db_user};password={$db_pass}";
   try {
-    $conn = new PDO($dsn);
-    if($conn) {
+    $db = new PDO($dsn);require("dbconfig.php");
+    if($db) {
       $sql = "INSERT INTO users (displayname, username, email, password, role) VALUES ('$displayname', '$username', '$email', '$password', '$role')";
-      $output = $conn->prepare($sql);
-      if (!$output) {
-        error_log(print_r($conn->errorInfo(), true));
+      $query = $db->prepare($sql);
+      if (!$query) {
+        error_log(print_r($db->errorInfo(), true));
       } else {
-        $output->execute();
+        $query->execute();
         login($username, $password);
         header("Location: /index.php, true, 303");
         echo "true";
       }
     }
-    $conn = null;
+    $db = null;
   } catch (PDOException $e) {
-    $conn = null;
-    error_log("functions.php :: PDOException :: {}");
+    $db = null;
+    error_log("functions.php :: PDOException :: {$e->getMessage()}");
     return false;
   }
   return true;
+  exit();
+}
+function listUsers() {
+  require "dbconfig.php";
+  try {
+    $db = new PDO($dsn);
+    if($db) {
+      $sql = "SELECT userid, username FROM users ORDER BY userid";
+      $query = $db->prepare($sql);
+      if ($query) {
+        $query->execute();
+        $rows = $query->fetchAll();
+        $db=null;
+        return $rows;
+      }
+    }
+    $db=null;
+  } catch (PDOException $e) {
+    $db=null;
+    error_log("functions.php :: PDOException :: {$e->getMessage()}");
+  }
+  return false;
+}
+function removeUser($userid, $username) {
+  require "dbconfig.php";
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  try {
+    $db = new PDO($dsn);
+    if($db) {
+      $sql = "DELETE FROM users WHERE userid=" . $userid . " AND username='" . $username . "'";
+      error_log($sql);
+      $query = $db->prepare($sql);
+      if ($query) {
+        $result = $query->execute();
+        if ($result) {
+          echo "true";
+          $db = null;
+          exit();
+        }
+      }
+    }
+    $db = null;
+  } catch (PDOException $e) {
+    $db = null;
+    error_log("functions.php :: PDOException :: {$e->getMessage()}");
+  }
+  echo "false";
   exit();
 }
 ?>

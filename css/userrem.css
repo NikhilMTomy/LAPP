@@ -1,0 +1,72 @@
+body {
+  font-family: 'Fira Sans'
+}
+.card {
+	width: 20rem;
+	margin: 0;
+}
+#idUserSelect {
+	margin: 5px auto 5px auto;
+	width: 15rem;
+}
+#idRemove {
+	margin: 5px auto 5px auto;
+}
+#idCardHead {
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle;
+}
+.card-head {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+.card-body {
+	text-align: center;
+	vertical-align: middle;
+}
+#rem-card {
+  width: 20rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+  transition: 0.3s;
+}
+#rem-card:hover {
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.7);
+}
+#rem-card-error {
+  width: 18rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 8px 0 rgba(255,0,0,0.6);
+  transition: 0.3s;
+}
+#rem-card-error:hover {
+    box-shadow: 0 8px 32px 0 rgba(255,0,0,0.7);
+}
+#idAlert {
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  color: rgb(255, 0, 0);
+  background-color: rgba(255, 119, 119, 0.6);
+  border-color: rgb(255, 0, 0);
+  border-width: 1px;
+  border-style: solid;
+}
+#idSuccess {
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  color: rgb(0, 255, 0);
+  background-color: rgba(119, 255, 119, 0.6);
+  border-color: rgb(0, 255, 0);
+  border-width: 1px;
+  border-style: solid;
+}

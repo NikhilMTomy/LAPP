@@ -18,6 +18,9 @@ if (isset($_POST["action"])) {
 		case "createUser":
 			createUser($_POST["displayname"], $_POST["username"], $_POST["email"], $_POST["password"], $_POST["role"]);
 			break;
+		case "removeUser":
+			removeUser($_POST["userid"], $_POST["username"]);
+			break;
 	}
 }
 ?>
